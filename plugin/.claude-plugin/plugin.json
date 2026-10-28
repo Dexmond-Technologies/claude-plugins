@@ -1,0 +1,61 @@
+{
+  "name": "dexmond-atlas",
+  "displayName": "Dexmond ATLAS",
+  "version": "1.2.0rc1",
+  "description": "Authorized infrastructure intelligence for Claude: map your estate, run bounded discovery, and surface automation opportunities. Read-only and human-approved; runs locally with no hosting required.",
+  "author": {
+    "name": "Dexmond Technologies Ltd",
+    "url": "https://dexmond.com"
+  },
+  "homepage": "https://dexmond.com/agent-atlas.html",
+  "repository": "https://github.com/Dexmond-Technologies/agent-atlas",
+  "license": "LicenseRef-Proprietary",
+  "icon": "./.claude-plugin/icon.png",
+  "keywords": ["infrastructure", "observability", "discovery", "digital-twin", "mcp", "atlas"],
+  "mcpServers": {
+    "atlas": {
+      "command": "uvx",
+      "args": ["--from", "${user_config.package_source}", "atlas-mcp"],
+      "env": {
+        "ATLAS_HOME": "${CLAUDE_PLUGIN_DATA}/atlas",
+        "ATLAS_LOCAL_NETWORKS": "${user_config.authorized_networks}",
+        "ATLAS_MCP_BASE_URL": "${user_config.remote_base_url}",
+        "ATLAS_MCP_TOKEN": "${user_config.remote_token}",
+        "ATLAS_MCP_CUSTOMER": "${user_config.remote_customer}"
+      }
+    }
+  },
+  "userConfig": {
+    "package_source": {
+      "type": "string",
+      "title": "ATLAS package source",
+      "description": "The uv/pip requirement uvx installs the bridge from. Keep the default for the published release, or point at a local path or git URL for a private build.",
+      "default": "dexmond-atlas[mcp]"
+    },
+    "authorized_networks": {
+      "type": "string",
+      "title": "Authorized scan scope (optional)",
+      "description": "Comma-separated CIDRs the local ATLAS is authorized to discover, e.g. 192.168.1.0/24. Empty means no scope: nothing is scanned until you authorize a network. Unrestricted ranges (0.0.0.0/0, ::/0) are refused. Only authorize networks you own or are permitted to assess.",
+      "default": ""
+    },
+    "remote_base_url": {
+      "type": "string",
+      "title": "Remote ATLAS URL (optional)",
+      "description": "Leave empty for local-first: a local ATLAS boots automatically on 127.0.0.1 with no scan scope until you authorize one. Set this to the URL of a self-hosted ATLAS to connect to that instead.",
+      "default": ""
+    },
+    "remote_token": {
+      "type": "string",
+      "title": "Remote ATLAS token (optional)",
+      "description": "Operator bearer token for a self-hosted ATLAS. Only used when a remote URL is set.",
+      "sensitive": true,
+      "default": ""
+    },
+    "remote_customer": {
+      "type": "string",
+      "title": "Remote ATLAS workspace (optional)",
+      "description": "Workspace / customer id (X-Atlas-Customer) for a self-hosted ATLAS. Only used when a remote URL is set.",
+      "default": ""
+    }
+  }
+}

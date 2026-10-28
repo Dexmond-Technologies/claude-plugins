@@ -1,0 +1,17 @@
+{
+  "name": "dexmond-technologies",
+  "description": "Dexmond Technologies plugins for Claude Code — starting with Agent ATLAS, authorized infrastructure intelligence.",
+  "owner": {
+    "name": "Dexmond Technologies Ltd",
+    "url": "https://dexmond.com"
+  },
+  "plugins": [
+    {
+      "name": "dexmond-atlas",
+      "source": "./plugin",
+      "description": "Authorized infrastructure intelligence for Claude: map your estate, run bounded discovery, and surface automation opportunities. Read-only and human-approved; runs locally with no hosting required.",
+      "category": "infrastructure",
+      "tags": ["infrastructure", "observability", "discovery", "mcp", "atlas"]
+    }
+  ]
+}
