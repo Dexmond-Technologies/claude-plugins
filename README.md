@@ -41,6 +41,10 @@ It starts with **no scan scope** (nothing is scanned until you authorize a
 network in the plugin's settings) and connects to a self-hosted ATLAS instead if
 you provide a remote URL.
 
+The plugin also adds seven read-only subagents (company research, finance,
+operations, process intelligence, reporting, security and supply chain) that
+answer from the company digital twin.
+
 See the plugin's own documentation in
 [`Dexmond-Technologies/agent-atlas`](https://github.com/Dexmond-Technologies/agent-atlas)
 for configuration and the safety model.
