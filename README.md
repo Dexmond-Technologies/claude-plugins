@@ -32,7 +32,7 @@ discovery.
 
 ## What the plugin runs
 
-- **An MCP server, `atlas`**: `uvx dexmond-atlas==1.2.0`, which downloads that exact published version from PyPI. It needs
+- **An MCP server, `atlas`**: `uvx dexmond-atlas==1.2.1`, which downloads that exact published version from PyPI. It needs
   [`uv`](https://docs.astral.sh/uv/) on your machine.
 - **A local ATLAS**: with no remote URL configured, the MCP server starts
   ATLAS on `127.0.0.1` with its data in the plugin's data folder, a generated
@@ -63,7 +63,7 @@ synthetic demo company (fictional, labelled "(demo)" everywhere) into the
 plugin's local ATLAS:
 
 ```bash
-uvx --from dexmond-atlas==1.2.0 atlas-demo
+uvx --from dexmond-atlas==1.2.1 atlas-demo
 ```
 
 Remove it later by deleting the plugin's data folder.
