@@ -13,6 +13,10 @@ inside ATLAS every change needs approval by a separate person.
 
 ## Install
 
+Requires [`uv`](https://docs.astral.sh/uv/): the MCP server runs with `uvx`.
+Install it once per machine by following the
+[uv installation guide](https://docs.astral.sh/uv/getting-started/installation/).
+
 In Claude Code:
 
 ```
@@ -20,9 +24,11 @@ In Claude Code:
 /plugin install dexmond-atlas@dexmond-technologies
 ```
 
-Reload Claude Code when prompted. The MCP server runs with
-[`uv`](https://docs.astral.sh/uv/) (`uvx`); install it once per machine by
-following the [uv installation guide](https://docs.astral.sh/uv/getting-started/installation/).
+Restart Claude Code when prompted. ATLAS starts with no network authorised,
+so it knows only the machine it runs on. To discover a network, open
+`/plugin`, set **Authorized scan scope** for dexmond-atlas (e.g.
+`192.168.1.0/24`), restart Claude Code, and ask Claude to run an ATLAS
+discovery.
 
 ## What the plugin runs
 
