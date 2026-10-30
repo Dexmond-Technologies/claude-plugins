@@ -1,8 +1,8 @@
 {
   "name": "dexmond-atlas",
   "displayName": "Dexmond ATLAS",
-  "version": "1.2.0rc4",
-  "description": "Authorized infrastructure intelligence for Claude: map your estate, run bounded discovery, and surface automation opportunities. Read-only and human-approved; runs locally with no hosting required.",
+  "version": "1.2.0rc5",
+  "description": "Authorized infrastructure intelligence for Claude: map the systems you authorize, run bounded discovery, and surface automation opportunities. Read-only tools plus authorized discovery; any change needs human approval inside ATLAS. Runs locally with no hosting required.",
   "author": {
     "name": "Dexmond Technologies Ltd",
     "url": "https://dexmond.com"
@@ -11,11 +11,22 @@
   "repository": "https://github.com/Dexmond-Technologies/agent-atlas",
   "license": "LicenseRef-Proprietary",
   "icon": "./.claude-plugin/icon.png",
-  "keywords": ["infrastructure", "observability", "discovery", "digital-twin", "mcp", "atlas"],
+  "keywords": [
+    "infrastructure",
+    "observability",
+    "discovery",
+    "digital-twin",
+    "mcp",
+    "atlas"
+  ],
   "mcpServers": {
     "atlas": {
       "command": "uvx",
-      "args": ["--from", "${user_config.package_source}", "atlas-mcp"],
+      "args": [
+        "--from",
+        "dexmond-atlas[mcp]==1.2.0rc5",
+        "atlas-mcp"
+      ],
       "env": {
         "ATLAS_HOME": "${CLAUDE_PLUGIN_DATA}/atlas",
         "ATLAS_LOCAL_NETWORKS": "${user_config.authorized_networks}",
@@ -26,12 +37,6 @@
     }
   },
   "userConfig": {
-    "package_source": {
-      "type": "string",
-      "title": "ATLAS package source",
-      "description": "The uv/pip requirement uvx installs the bridge from. Keep the default for the published release, or point at a local path or git URL for a private build.",
-      "default": "dexmond-atlas[mcp]"
-    },
     "authorized_networks": {
       "type": "string",
       "title": "Authorized scan scope (optional)",
