@@ -77,6 +77,22 @@ data to Dexmond. Tool results become part of your Claude conversation. Full
 policy: [PRIVACY.md](PRIVACY.md) (published at
 <https://github.com/Dexmond-Technologies/claude-plugins/blob/main/PRIVACY.md>).
 
+## Troubleshooting
+
+**`/mcp` shows `atlas` failed, with `ENOENT uvx` or "Executable not found
+in $PATH: uvx".** Claude Code cannot see the folder where `uv` is installed
+(usually `~/.local/bin` on Linux and macOS). Check that `uvx --version` works
+in a new terminal, then start Claude Code from that terminal. If it still
+fails, add uv's folder to the `PATH` Claude Code uses, in
+`~/.claude/settings.json`:
+
+```json
+{ "env": { "PATH": "/home/you/.local/bin:/usr/local/bin:/usr/bin:/bin" } }
+```
+
+Use the output of `echo $PATH` from a terminal where `uvx` works, then
+restart Claude Code.
+
 ## Support
 
 support@dexmond.com · security issues: security@dexmond.com ·
