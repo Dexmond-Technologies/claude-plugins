@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "dexmond-atlas",
-      "source": "./plugin",
+      "source": "./",
       "description": "Authorized infrastructure intelligence for Claude: map your estate, run bounded discovery, and surface automation opportunities. Read-only and human-approved; runs locally with no hosting required.",
       "category": "infrastructure",
       "tags": ["infrastructure", "observability", "discovery", "mcp", "atlas"]

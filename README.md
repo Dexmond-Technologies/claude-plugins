@@ -1,8 +1,15 @@
-# Dexmond Technologies — Claude Code plugins
+# Dexmond ATLAS for Claude
 
-Public marketplace for [Dexmond Technologies](https://dexmond.com) plugins for
-Claude Code. The plugin code itself is distributed from PyPI; this repository
-holds only the marketplace and plugin manifests.
+ATLAS gives Claude a read-only view of the systems you authorise: an
+inventory and dependency map (a digital twin) of your hosts, services,
+databases and APIs, the impact of a failure, drift since the last snapshot,
+workflow findings where people bridge systems by hand, and estimated
+automation opportunities. It can also model a company (finances, capacity,
+suppliers, processes) from data you import.
+
+Claude gets read-only tools plus one action: starting a discovery of networks
+you have authorised. Claude can never execute, approve or roll back a change;
+inside ATLAS every change needs approval by a separate person.
 
 ## Install
 
@@ -13,12 +20,8 @@ In Claude Code:
 /plugin install dexmond-atlas@dexmond-technologies
 ```
 
-Reload Claude Code when prompted.
-
-### Prerequisite
-
-The `dexmond-atlas` plugin runs its MCP server with [`uv`](https://docs.astral.sh/uv/)
-(`uvx`). Install it once per machine:
+Reload Claude Code when prompted. The MCP server runs with
+[`uv`](https://docs.astral.sh/uv/) (`uvx`); install it once per machine:
 
 ```sh
 # macOS / Linux
@@ -27,30 +30,65 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-## Plugins
+## What the plugin runs
 
-### dexmond-atlas
+- **An MCP server, `atlas`**: `uvx dexmond-atlas==1.2.0rc7`, which downloads that exact published version from PyPI. It needs
+  [`uv`](https://docs.astral.sh/uv/) on your machine.
+- **A local ATLAS**: with no remote URL configured, the MCP server starts
+  ATLAS on `127.0.0.1` with its data in the plugin's data folder, a generated
+  access token, and **no authorised scan scope**.
+- **Seven agents** (company research, finance, operations, process
+  intelligence, reporting, security, supply chain) that answer from ATLAS's
+  tools. They are read-only.
 
-Authorized infrastructure intelligence for Claude: map your estate, build a
-**digital twin** of your company's infrastructure, run bounded discovery, and
-surface automation opportunities. Read-only and human-approved.
+## What it connects to
 
-On first use the plugin fetches [`dexmond-atlas`](https://pypi.org/project/dexmond-atlas/)
-from PyPI and boots a local ATLAS instance on `127.0.0.1` — no hosting required.
-It starts with **no scan scope** (nothing is scanned until you authorize a
-network in the plugin's settings) and connects to a self-hosted ATLAS instead if
-you provide a remote URL.
+PyPI (to download the package), the networks you authorise in the plugin's
+settings, and — only if you configure it — a self-hosted ATLAS at the Remote
+ATLAS URL. It sends nothing to Dexmond. See the [Privacy Policy](PRIVACY.md).
 
-The plugin also adds seven read-only subagents (company research, finance,
-operations, process intelligence, reporting, security and supply chain) that
-answer from the company digital twin.
+## Settings
 
-See the plugin's own documentation in
-[`Dexmond-Technologies/agent-atlas`](https://github.com/Dexmond-Technologies/agent-atlas)
-for configuration and the safety model.
+- **Authorized scan scope**: comma-separated CIDRs ATLAS may discover, e.g.
+  `192.168.1.0/24`. Empty means nothing is scanned. Only authorise networks
+  you own or have permission to assess.
+- **Remote ATLAS URL, token and workspace** (optional): connect to a
+  self-hosted ATLAS instead of the local one. The token is stored as a
+  sensitive setting.
 
-## License
+## Try it with sample data
 
-The `dexmond-atlas` plugin and the ATLAS software are proprietary
-(© Dexmond Technologies Ltd). The manifests in this repository are published to
-enable installation; they do not grant a license to the underlying software.
+A fresh ATLAS is empty. To try the tools without real systems, load the
+synthetic demo company (fictional, labelled "(demo)" everywhere) into the
+plugin's local ATLAS:
+
+```bash
+uvx --from dexmond-atlas==1.2.0rc7 atlas-demo
+```
+
+Remove it later by deleting the plugin's data folder.
+
+## Example prompts
+
+- "Use ATLAS to summarise Northwind Components' finances: which business unit has the better margin?"
+- "Which suppliers does ATLAS know about, and which products depend on them?"
+- "What would the margin of the Sensors unit be if its costs rose by 10%?"
+- "List the systems ATLAS has discovered and how fresh the evidence for each is."
+- "If the main database went down, what depends on it?"
+
+## Privacy Policy
+
+The plugin runs ATLAS on your machine, stores its data locally, and sends no
+data to Dexmond. Tool results become part of your Claude conversation. Full
+policy: [PRIVACY.md](PRIVACY.md) (published at
+<https://github.com/Dexmond-Technologies/claude-plugins/blob/main/PRIVACY.md>).
+
+## Support
+
+support@dexmond.com · security issues: security@dexmond.com ·
+<https://dexmond.com/agent-atlas.html>
+
+## Licence
+
+Proprietary software of Dexmond Technologies Ltd. Use of ATLAS is subject to
+Dexmond's licence terms.
