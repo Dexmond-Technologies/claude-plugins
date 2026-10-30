@@ -1,7 +1,7 @@
 {
   "name": "dexmond-atlas",
   "displayName": "Dexmond ATLAS",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Authorized infrastructure intelligence for Claude: map the systems you authorize, run bounded discovery, and surface automation opportunities. Read-only tools plus authorized discovery; any change needs human approval inside ATLAS. Runs locally with no hosting required.",
   "author": {
     "name": "Dexmond Technologies Ltd",
@@ -23,7 +23,7 @@
     "atlas": {
       "command": "uvx",
       "args": [
-        "dexmond-atlas==1.2.1"
+        "dexmond-atlas==1.2.2"
       ],
       "env": {
         "ATLAS_HOME": "${CLAUDE_PLUGIN_DATA}/atlas",
